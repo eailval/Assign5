@@ -111,3 +111,29 @@ module.exports.addStudent = function (studentData) {
         resolve();
     });
 };
+
+
+module.exports.getCourseById = function (Cid) {
+    return new Promise((resolve, reject) => {
+        const course = dataCollection.courses.find(c => c.courseId === Cid);
+        if (course) {
+            resolve(course);
+        } else {
+            reject('query returned 0 results');
+        }
+    });
+};
+
+module.exports.updateStudent = function (studentData) {
+    return new Promise((resolve, reject) => {
+        const data = dataCollection.students.find(student => student.studentNum === studentData.studentNum);
+        if (studentData.studentNum < 0) {
+            reject(new Error(`Could not find student with studentNum ${studentData.studentNum}`));
+            return;
+        }
+        const newStudent = Object.assign({}, data, studentData);
+        newStudent.isTA = studentData.isTA || false; // handle TA checkbox data
+        dataCollection.students[studentData.studentNum - 1] = newStudent;
+        resolve();
+    });
+};
