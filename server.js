@@ -56,7 +56,7 @@ app.use(express.urlencoded({
 app.use(express.static('public'));
 
 app.get('/students/add', (req, res) => {
-    res.render('addStudent');
+    res.render('addstudent');
 });
 
 app.post('/students/add', (req, res) => {
